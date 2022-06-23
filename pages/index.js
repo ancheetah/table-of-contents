@@ -1,5 +1,7 @@
+/* eslint-disable react/no-unescaped-entities */
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
+import TOC from '../components/TOC';
 
 export default function Home() {
     return (
@@ -11,6 +13,9 @@ export default function Home() {
             </header>
 
             <main className={styles.main}>
+                <p>Table of Contents</p>
+                <TOC/>
+
                 <h2>Your bones don't break, mine do</h2>
                 <p>
                     Your bones don't break, mine do. That's clear. Your cells
