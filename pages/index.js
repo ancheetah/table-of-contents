@@ -16,7 +16,7 @@ export default function Home() {
                 <p>Table of Contents</p>
                 <TableOfContents/>
 
-                <h2>Your bones don't break, mine do</h2>
+                <h2 id='my-id'>Your bones don't break, mine do</h2>
                 <p>
                     Your bones don't break, mine do. That's clear. Your cells
                     react to bacteria and viruses differently than mine. You

@@ -23,10 +23,18 @@ export default function TableOfContents(props) {
    useEffect( () => {
     // Find headings and create slugs
     const headingInfo = Array.from(document.querySelectorAll('h2'))
-        .map( heading => {
+        .map( elem => {
+            const title = elem.textContent
+            const slug = elem.id || slugify(elem.textContent);
+
+            // Set heading id
+            if (!elem.id) {
+                elem.setAttribute('id', slug)
+            }
+
             return {
-                title: heading.textContent,
-                slug: heading.id || slugify(heading.textContent)
+                title: elem.textContent,
+                slug: elem.id || slugify(elem.textContent)
             }
         })
 
