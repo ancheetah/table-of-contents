@@ -46,7 +46,9 @@ export default function TableOfContents(props) {
     return <div>
         <ul>
             {headings.map( (heading, index) => {
-                return <li key={index}>{heading.title}</li>
+                return <li key={index} className='toc-link'>
+                            <a href={`#${heading.slug}`}>{heading.title}</a>
+                        </li>
             })}
         </ul>
     </div>;
