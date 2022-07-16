@@ -1,6 +1,40 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
-export default function TableOfContents(props) {
+const useHandleIntersection = ( headerIds, activeId, setActiveId ) => {
+    // const [activeId, setActiveId] = useState('');
+    const observer = useRef();
+    const callback = (entries) => {
+        entries.forEach( entry => {
+            console.log(entry.target.id)
+            if (entry?.isIntersecting) {
+                setActiveId(entry.target.id)
+            }
+        });
+    }
+
+    useEffect( () => {
+        const headingElems = headerIds.map( id => document.getElementById(id))
+        console.log('headingElems =', headingElems)
+        observer.current?.disconnect();
+        
+        observer.current = new IntersectionObserver( 
+                callback, 
+                { rootMargin: "0% 0% -98% 0%" }
+            )
+        
+        headingElems.forEach( el => {
+            if (el) {
+                observer.current?.observe(el)
+            }
+        });
+
+        return () => observer.current?.disconnect();
+    }, [headerIds])
+
+    return activeId;
+}
+
+const TableOfContents = () => {
     /*
     Pseudocode:
     1. Find all h2's
@@ -11,6 +45,7 @@ export default function TableOfContents(props) {
     */
    
    const [headings, setHeadings] = useState([]);
+   const [activeId, setActiveId] = useState('');
 
    const slugify = (name) => {
     return name.toString().toLowerCase()
@@ -41,13 +76,22 @@ export default function TableOfContents(props) {
     console.log(headingInfo);
     setHeadings(headingInfo);
    }, [])
+
+   useHandleIntersection(headings.map(({slug}) => slug), activeId, setActiveId);
     
-   // List all headings in TOC
     return <ul style={{ padding: '0', listStyleType: 'none' }}>
             {headings.map( (heading, index) => {
                 return <li key={index} className='toc-link'>
-                            <a href={`#${heading.slug}`}>{heading.title}</a>
+                            <a 
+                                href={`#${heading.slug}`}
+                                style={{ fontWeight: activeId === heading.slug ? "bold" : "normal" }}
+                                onClick = { () => setActiveId(heading.slug) }
+                            >
+                                {heading.title}
+                            </a>
                         </li>
             })}
         </ul>
 }
+
+export default TableOfContents;
