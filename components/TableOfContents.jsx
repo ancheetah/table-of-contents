@@ -15,24 +15,34 @@ const useHeadings = () => {
     };
 
     useEffect(() => {
-        const headingInfo = Array.from(document.querySelectorAll(['h2','h3'])).map(
-            (elem) => {
-                const title = elem.textContent;
-                const slug = elem.id || slugify(title);
+        const allIds = Array.from(document.querySelectorAll('*'))
+            .map((elem) => elem.id)
+            .filter((elem) => elem);
+        const headingInfo = Array.from(
+            document.querySelectorAll(['h2', 'h3'])
+        ).map((elem) => {
+            const title = elem.textContent;
+            const slug = elem.id || slugify(title);
 
-                if (!elem.id) {
-                    elem.setAttribute('id', slug);
+            // Set the id attribute
+            if (!elem.id) {
+                if (allIds.includes(slug)) {
+                    alert(
+                        `[Table of Contents] Warning: Duplicate ID #${slug} found on page. Create unique IDs for headers.`
+                    );
                 }
 
-                return {
-                    title: title,
-                    slug: slug,
-                    tag: elem.tagName.toLowerCase(),
-                };
+                elem.setAttribute('id', slug);
+                allIds.push(slug);
             }
-        );
 
-        console.log(headingInfo);
+            return {
+                title: title,
+                slug: slug,
+                tag: elem.tagName.toLowerCase()
+            };
+        });
+
         setHeadings(headingInfo);
     }, []);
 
@@ -87,10 +97,7 @@ const TableOfContents = () => {
                                     activeId === heading.slug
                                         ? 'bold'
                                         : 'normal',
-                                paddingLeft: 
-                                    heading.tag === 'h3'
-                                        ? '1em'
-                                        : '0',
+                                paddingLeft: heading.tag === 'h3' ? '1em' : '0'
                             }}
                             onClick={() => setActiveId(heading.slug)}
                         >
