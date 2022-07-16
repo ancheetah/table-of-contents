@@ -42,14 +42,12 @@ export default function TableOfContents(props) {
     setHeadings(headingInfo);
    }, [])
     
-   // List all headings
-    return <div>
-        <ul>
+   // List all headings in TOC
+    return <ul style={{ padding: '0', listStyleType: 'none' }}>
             {headings.map( (heading, index) => {
                 return <li key={index} className='toc-link'>
                             <a href={`#${heading.slug}`}>{heading.title}</a>
                         </li>
             })}
         </ul>
-    </div>;
 }

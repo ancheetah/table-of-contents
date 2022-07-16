@@ -12,10 +12,12 @@ export default function Home() {
                 </h1>
             </header>
 
-            <main className={styles.main}>
-                <p>Table of Contents</p>
+            <nav className={styles.toc}>
+                <strong>Table of Contents</strong>
                 <TableOfContents/>
+            </nav>
 
+            <main className={styles.main}>
                 <h2 id='my-id'>Your bones don't break, mine do</h2>
                 <p>
                     Your bones don't break, mine do. That's clear. Your cells
