@@ -14,7 +14,7 @@ export default function Home() {
 
             <nav className={styles.toc}>
                 <strong>Table of Contents</strong>
-                <TableOfContents/>
+                <TableOfContents />
             </nav>
 
             <main className={styles.main}>
@@ -40,7 +40,20 @@ export default function Home() {
                     nothing.{' '}
                 </p>
 
-                <h2>Hold on to your butts</h2>
+                <h3>Hold on to your butts</h3>
+                <p>
+                    The path of the righteous man is beset on all sides by the
+                    iniquities of the selfish and the tyranny of evil men.
+                    Blessed is he who, in the name of charity and good will,
+                    shepherds the weak through the valley of darkness, for he is
+                    truly his brother's keeper and the finder of lost children.
+                    And I will strike down upon thee with great vengeance and
+                    furious anger those who would attempt to poison and destroy
+                    My brothers. And you will know My name is the Lord when I
+                    lay My vengeance upon thee.{' '}
+                </p>
+
+                <h3>Is she dead, yes or no?</h3>
                 <p>
                     The path of the righteous man is beset on all sides by the
                     iniquities of the selfish and the tyranny of evil men.

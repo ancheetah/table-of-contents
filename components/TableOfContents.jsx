@@ -15,7 +15,7 @@ const useHeadings = () => {
     };
 
     useEffect(() => {
-        const headingInfo = Array.from(document.querySelectorAll('h2')).map(
+        const headingInfo = Array.from(document.querySelectorAll(['h2','h3'])).map(
             (elem) => {
                 const title = elem.textContent;
                 const slug = elem.id || slugify(title);
@@ -26,7 +26,8 @@ const useHeadings = () => {
 
                 return {
                     title: title,
-                    slug: slug
+                    slug: slug,
+                    tag: elem.tagName.toLowerCase(),
                 };
             }
         );
@@ -85,7 +86,11 @@ const TableOfContents = () => {
                                 fontWeight:
                                     activeId === heading.slug
                                         ? 'bold'
-                                        : 'normal'
+                                        : 'normal',
+                                paddingLeft: 
+                                    heading.tag === 'h3'
+                                        ? '1em'
+                                        : '0',
                             }}
                             onClick={() => setActiveId(heading.slug)}
                         >
